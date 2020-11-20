@@ -19,14 +19,13 @@ if(isset($_GET['student_id'])){
 
 if(Input::exists()){
     if(Token::check(Input::get('token'))) {
-        pr($_POST);
+//        pr($_POST);
 
         $validate = new Validate();
         $validate->check($_POST, array(
-            'student_list' => array('required' => true),
+            'student_list' => array('required' => true,'msg'=>"Please select student"),
             'course_list' => array('required' => true)
         ));
-
         if ($validate->passed()) {
             // $course = new Course();
             // try {
@@ -66,6 +65,12 @@ if(Input::exists()){
   </head>
   <body class="bg-light">
     <div class="container">
+            <?php if(isset($validate) && $validate->errors()){
+                    foreach ($validate->errors() as $error) { ?>
+                        <div class="alert alert-success" role="alert">
+                            <?php  echo $error . "<br>";?>
+                        </div>
+            <?php }}?>
         <div class="row py-5">
             <div class="col-md-8 order-md-1">
                 <form action="" method="post">

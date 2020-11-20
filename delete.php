@@ -1,12 +1,22 @@
 <?php
 require_once 'core/init.php';
-$student_id = $_GET['id'];
-$student = new Student();
-try {
-    $student = new Student();
-    $student->delete_record('students',['id','=',$student_id]);
+$id = $_GET['id'];
+$type = $_GET['type'];
 
-    header('Location: students_list.php');
+try {
+
+    if($type == 'student'){
+        $student = new Student();
+        $student->delete_record('students',['id','=',$id]);
+        header('Location: students_list.php');
+    }else{
+        $course = new Course();
+        $course->delete_record(['id','=',$id]);
+        header('Location: course_list.php');
+    }
+    
+
+    
 } catch(Exception $e) {
     pr($e);
     echo $e->getTraceAsString(), '<br>';

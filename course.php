@@ -13,7 +13,7 @@ if (Input::exists()) {
             $course = new Course();
             try {
                 $course->create(['course_name' => Input::get('course_name'),'course_details' => Input::get('course_details')]);
-                header('Location: index.php');
+                header('Location: course_list.php');
             } catch(Exception $e) {
                 pr($e);
                 echo $e->getTraceAsString(), '<br>';

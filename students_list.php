@@ -38,7 +38,6 @@ $pages	= $pagination->get_pagination_number();
                     <thead>
                         <tr>
                         <th></th>
-                        <th scope="col">#</th>
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
                         <th scope="col">ID</th>
@@ -51,11 +50,10 @@ $pages	= $pagination->get_pagination_number();
                     foreach($users->results() as $v){?>
                         <tr>
                             <td><a href="edit_student.php?id=<?php echo $v->id;?>">Edit</a></td>
-                            <th scope="row"><?php echo $i;?></th>
                             <td><?php echo $v->fname;?></td>
                             <td><?php echo $v->lname;?></td>
                             <td><?php echo $v->id;?></td>
-                            <td><a href="delete.php?id=<?php echo $v->id;?>">Delete</a></td>
+                            <td><a href="delete.php?type=student&id=<?php echo $v->id;?>">Delete</a></td>
                         </tr>
                         
                     <?php $i++;}?>
@@ -64,18 +62,11 @@ $pages	= $pagination->get_pagination_number();
 
 
                     <hr>
-                    <a href="?page=<?php echo $pagination->prev_page().''.$pagination->check_search();?>"> << </a>
-                        <?php for($i=1; $i<=$pages; $i++): ?>
-                            <?php if($pagination->is_showable($i)):?>
-                                <a class="<?php echo $pagination->is_active_class($i) ?>" href="?page=<?php echo $i.''.$pagination->check_search(); ?>"><?php echo $i;?></a>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-                    <a href="?page=<?php echo $pagination->next_page().''.$pagination->check_search();?>"> >> </a>
-                   
-                    
-                    <!-- <div class="mb-3 mt-3">
-                        <a class="btn btn-primary" href="../students-courses">Back</a>
-                    </div> -->
+                    <a href="?page=<?php echo $pagination->prev_page();?>"> << </a>
+                    <?php for($i=1; $i<=$pages; $i++){ ?>
+                            <a class="<?php echo $pagination->is_active_class($i) ?>" href="?page=<?php echo $i; ?>"><?php echo $i;?></a>
+                    <?php } ?>
+                    <a href="?page=<?php echo $pagination->next_page();?>"> >> </a>
 
                     <?php include('actions_view.php');?>
 

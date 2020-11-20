@@ -11,6 +11,7 @@ class Student {
     }
 
     public function create($table,$fields = array()) {
+        //pr($fields);exit;
         if(!$this->_db->insert($table, $fields)) {
             throw new Exception('Sorry, there was a problem creating record;');
         }

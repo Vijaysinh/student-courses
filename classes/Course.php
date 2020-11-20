@@ -60,5 +60,11 @@ class Course {
         }
     }
 
+    public function delete_record($id = null) {
+        if(!$this->_db->delete($this->table, $id)) {
+            throw new Exception('There was a problem remove course');
+        }
+    }
+
     
 }

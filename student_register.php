@@ -5,22 +5,26 @@ if (Input::exists()) {
     if(Token::check(Input::get('token'))) {
         $validate = new Validate();
         $validate->check($_POST, array(
-            'fname' => array('required' => true),
-            'lname' => array('required' => true),
-            'phone' => array('required' => true,'unique'=>'students'),
+            'fname' => array('required' => true,'min' => 1,'max' => 20,'name' => 'First Name'),
+            'lname' => array('required' => true,'min' => 1,'max' => 20,'name' => 'Last Name'),
+            'phone' => array(
+                'required' => true,
+                'min' => 1,
+                'max' => 10,
+                'unique'=>'students'),
             'dob' => array('required' => true)
         ));
         
         if ($validate->passed()) {
             $student = new Student();
             try {
-                $student->create('students',['fname' => Input::get('fname'),'lname' => Input::get('lname'),
+                $student->create('students',['fname' => checkInput(Input::get('fname')),'lname' => checkInput(Input::get('lname')),
                 'dob' => date('Y-m-d',strtotime(Input::get('dob'))),
-                'phone' => Input::get('phone')]);
+                'phone' => checkInput(Input::get('phone'))]);
                 
                 header('Location: students_list.php');
             } catch(Exception $e) {
-                pr($e);
+                //pr($e);
                 echo $e->getTraceAsString(), '<br>';
             }
         } else {
@@ -63,14 +67,14 @@ if (Input::exists()) {
                     <div class="mb-3">
                         <label for="username">First Name</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" required="">
+                            <input type="text" class="form-control" id="fname" name="fname" placeholder="First Name" maxlength="20" required="">
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="username">Last Name</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" required="">
+                            <input type="text" class="form-control" id="lname" name="lname" placeholder="Last Name" maxlength="20" required="">
                         </div>
                     </div>
 
@@ -78,7 +82,7 @@ if (Input::exists()) {
                     <div class="mb-3">
                         <label for="username">Contact No</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Contact No" required="">
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Contact No" maxlength="10" required="">
                         </div>
                     </div>
 
@@ -99,21 +103,7 @@ if (Input::exists()) {
             </div>
         </div>
     </div>
-
-    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-    <!--
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-     Option 2: jQuery, Popper.js, and Bootstrap JS
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-    -->
-    <script>
-        $(document).ready(function() {
-            $('#dob').datepicker();
-        });
-    </script>
+    <?php include('js_loader.php');?>                    
+    
   </body>
 </html>

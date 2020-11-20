@@ -24,11 +24,23 @@ class Validate {
                                 $this->addError("{$item} already exists.");
                             }
                             break;
+                        
+                        case 'min':
+                            if(strlen($value) < $rule_value) {
+                                $this->addError("{$item} must be a minimum of {$rule_value} characters.");
+                            }
+                            break;
+
+                        case 'max':
+                            if(strlen($value) > $rule_value) {
+                                $this->addError("{$item} must be a maximum of {$rule_value} characters.");
+                            }
+                            break;
                     }
                 }
             }
         }
-        pr($this);
+        
         if(empty($this->_errors)) {
             $this->_passed = true;
         }

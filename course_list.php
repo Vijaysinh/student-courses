@@ -43,7 +43,7 @@ $pages	= $pagination->get_pagination_number();
                             <th scope="row"><?php echo $i;?></th>
                             <td><?php echo $v->course_name;?></td>
                             <td><?php echo $v->id;?></td>
-                            <td><a href="tex">Delete</a></td>
+                            <td><a href="delete.php?type=course&id=<?php echo $v->id;?>">Delete</a></td>
                         </tr>
                     <?php $i++;}?>
                     </tbody>
