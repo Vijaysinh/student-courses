@@ -15,4 +15,10 @@ CREATE DATABASE courses_db COLLATE utf8_general_ci;
 
 # Home
 <img src="images/Home.PNG" raw=true style="margin-right: 10px;"/>
- 
+
+# Add New Student
+<img src="images/AddNewStudent.PNG" raw=true style="margin-right: 10px;"/>
+
+# Registered Students List With OOPS Pagination Class
+<img src="images/StudentList.PNG" raw=true style="margin-right: 10px;"/>
+
