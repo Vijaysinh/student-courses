@@ -54,7 +54,7 @@ if (Input::exists()) {
         <div class="row py-5">
             <div class="col-md-8 order-md-1">
                 <form action="" method="post">
-                    <h4 class="mb-3">Course Details</h4>    
+                    <h1>Add New Course</h4>    
 
                     <div class="mb-3">
                         <label for="username">Course Name</label>

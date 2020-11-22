@@ -33,7 +33,7 @@ $pages	= $pagination->get_pagination_number();
     <div class="container">
         <div class="row py-5">
             <div class="col-md-8 order-md-1">
-
+                <h1>Registered Students List with OOPS Pagination Class</h1>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

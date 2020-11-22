@@ -24,7 +24,7 @@ $pages	= $pagination->get_pagination_number();
     <div class="container">
         <div class="row py-5">
             <div class="col-md-8 order-md-1">
-
+                <h1>Courses List</h1>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -51,13 +51,11 @@ $pages	= $pagination->get_pagination_number();
 
 
                     <hr>
-                    <a href="?page=<?php echo $pagination->prev_page().''.$pagination->check_search();?>"> << </a>
-                        <?php for($i=1; $i<=$pages; $i++): ?>
-                            <?php if($pagination->is_showable($i)):?>
-                                <a class="<?php echo $pagination->is_active_class($i) ?>" href="?page=<?php echo $i.''.$pagination->check_search(); ?>"><?php echo $i;?></a>
-                            <?php endif; ?>
-                        <?php endfor; ?>
-                    <a href="?page=<?php echo $pagination->next_page().''.$pagination->check_search();?>"> >> </a>
+                    <a href="?page=<?php echo $pagination->prev_page()?>"> << </a>
+                        <?php for($i=1; $i<=$pages; $i++){ ?>
+                                <a class="<?php echo $pagination->is_active_class($i) ?>" href="?page=<?php echo $i; ?>"><?php echo $i;?></a>
+                        <?php } ?>
+                    <a href="?page=<?php echo $pagination->next_page();?>"> >> </a>
                    
                     
                     <?php include('actions_view.php');?>

@@ -62,6 +62,7 @@ if (Input::exists()) {
 
         <div class="row py-5">
             <div class="col-md-8 order-md-1">
+                    <h1>Add New Student</h1>
                 <form action="" method="post">
 
                     <div class="mb-3">
