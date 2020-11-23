@@ -40,6 +40,7 @@ $pages	= $pagination->get_pagination_number();
                         <th></th>
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
+                        <th scope="col">Phone</th>
                         <th scope="col">ID</th>
                         
                         </tr>
@@ -52,6 +53,7 @@ $pages	= $pagination->get_pagination_number();
                             <td><a href="edit_student.php?id=<?php echo $v->id;?>">Edit</a></td>
                             <td><?php echo $v->fname;?></td>
                             <td><?php echo $v->lname;?></td>
+                            <td><?php echo $v->phone;?></td>
                             <td><?php echo $v->id;?></td>
                             <td><a href="delete.php?type=student&id=<?php echo $v->id;?>">Delete</a></td>
                         </tr>

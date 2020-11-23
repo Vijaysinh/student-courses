@@ -3,36 +3,42 @@ require_once 'core/init.php';
 
 
 $student_id = $_GET['id'];
+$isError = '';
 if (Input::exists()) {
     if(Token::check(Input::get('token'))) {
         $validate = new Validate();
         $validate->check($_POST, array(
             'fname' => array('required' => true),
             'lname' => array('required' => true),
-            'dob' => array('required' => true)
+            'dob' => array('required' => true),
+            'phone' => array('required' => true,'unique'=>'students')
         ));
         
         if ($validate->passed()) {
             $student = new Student();
-
             
             try {
 
                 $student->update('students',array(
                     'fname' => Input::get('fname'),
                     'lname' => Input::get('lname'),
+                    'phone' => Input::get('phone'),
                     'dob' => date('Y-m-d',strtotime(Input::get('dob')))),$student_id);
 
                 header('Location: students_list.php');
             } catch(Exception $e) {
-                pr($e);
-                echo $e->getTraceAsString(), '<br>';
+                //pr($e);
+                $isError = $e->getMessage();
+                //echo $e->getTraceAsString(), '<br>';
             }
-        } else {
-            foreach ($validate->errors() as $error) {
-                echo $error . "<br>";
-            }
-        }
+        } 
+        
+        
+        // else {
+        //     foreach ($validate->errors() as $error) {
+        //         echo $error . "<br>";
+        //     }
+        // }
     }
 }
 $student = new Student();
@@ -54,6 +60,18 @@ $student_detail = $student->findByID('students',$student_id);
   </head>
   <body class="bg-light">
     <div class="container">
+
+    <?php if(isset($validate) && $validate->errors()){
+                    foreach ($validate->errors() as $error) { ?>
+                        <div class="alert alert-danger" role="alert">
+                            <?php  echo $error . "<br>";?>
+                        </div>
+            <?php }}?>
+            <?php if(isset($isError) && $isError!=''){  ?>
+            <div class="alert alert-danger" role="alert">
+                <?php  echo $isError . "<br>";?>
+            </div>
+            <?php }?>
             <div class="row py-5">
             <div class="col-md-8 order-md-1">
             <form action="" method="post">
@@ -73,12 +91,12 @@ $student_detail = $student->findByID('students',$student_id);
                 </div>
 
 
-                <!-- <div class="mb-3">
+                <div class="mb-3">
                     <label for="username">Contact No</label>
                     <div class="input-group">
-                        <input type="text" value="<php echo $student->data()->phone; ?>" class="form-control" id="phone" name="phone" placeholder="Contact No" required="">
+                        <input type="text" value="<?php echo $student->data()->phone; ?>" class="form-control" id="phone" name="phone" placeholder="Contact No" required="">
                     </div>
-                </div> -->
+                </div>
 
                 <div class="mb-3">
                     <label for="dob">DOB</label>
