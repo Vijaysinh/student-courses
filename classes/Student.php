@@ -2,16 +2,13 @@
 <?php
 class Student {
     private $_db,
-            $_data,
-            $_sessionName;
+            $_data;
 
     public function __construct($user = null) {
         $this->_db = DB::getInstance();
-        $this->_sessionName = Config::get('sessions/session_name');
     }
 
     public function create($table,$fields = array()) {
-        //pr($fields);exit;
         if(!$this->_db->insert($table, $fields)) {
             throw new Exception('Sorry, there was a problem creating record;');
         }
