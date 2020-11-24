@@ -9,7 +9,6 @@ $GLOBALS['config'] = array(
         'db' => 'courses_db'
     ),
     'sessions' => array(
-        'session_name' => 'user',
         'token_name' => 'token'
     )
 );
@@ -19,10 +18,4 @@ spl_autoload_register(function($class) {
 });
 
 require_once 'functions/sanitize.php';
-
-function pr($a){
-    echo "<pre>";
-    return print_r($a);
-}
-
 ?>

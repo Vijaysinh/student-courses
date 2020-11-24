@@ -13,5 +13,8 @@ function checkInput($input) {
     $input = htmlspecialchars($input);
     return escape($input);
 }    
-
+function pr($a){
+    echo "<pre>";
+    return print_r($a);
+}
 ?>
