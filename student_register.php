@@ -1,5 +1,6 @@
 <?php
 require_once 'core/init.php';
+$isError = '';
 
 if (Input::exists()) {
     if(Token::check(Input::get('token'))) {
@@ -24,14 +25,9 @@ if (Input::exists()) {
                 
                 header('Location: students_list.php');
             } catch(Exception $e) {
-                //pr($e);
-                echo $e->getTraceAsString(), '<br>';
+                $isError = $e->getMessage();
             }
-        } else {
-            foreach ($validate->errors() as $error) {
-                //echo $error . "<br>";
-            }
-        }
+        } 
     }
 }
 ?>
@@ -57,7 +53,11 @@ if (Input::exists()) {
                         </div>
             <?php }}?>
             
-            
+            <?php if(isset($isError) && $isError!=''){  ?>
+            <div class="alert alert-danger" role="alert">
+                <?php  echo $isError . "<br>";?>
+            </div>
+            <?php }?>
         
 
         <div class="row py-5">
