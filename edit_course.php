@@ -4,6 +4,7 @@ require_once 'core/init.php';
 $course = new Course();
 $course_id = $_GET['id'];
 $course_details = $course->find($course_id);
+$isError = '';
 
 if (Input::exists()) {
     if(Token::check(Input::get('token'))) {
@@ -23,12 +24,7 @@ if (Input::exists()) {
 
                 header('Location: course_list.php');
             } catch(Exception $e) {
-                pr($e);
-                echo $e->getTraceAsString(), '<br>';
-            }
-        } else {
-            foreach ($validate->errors() as $error) {
-                //echo $error . "<br>";
+                $isError = $e->getMessage();
             }
         }
     }
@@ -51,6 +47,11 @@ if (Input::exists()) {
   </head>
   <body class="bg-light">
     <div class="container">
+        <?php if(isset($isError) && $isError!=''){  ?>
+            <div class="alert alert-danger" role="alert">
+                <?php  echo $isError . "<br>";?>
+            </div>
+            <?php }?>
             <div class="row py-5">
             <div class="col-md-8 order-md-1">
                 <form action="" method="post">
