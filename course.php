@@ -1,6 +1,6 @@
 <?php
 require_once 'core/init.php';
-
+$isError = '';
 if (Input::exists()) {
     if(Token::check(Input::get('token'))) {
         $validate = new Validate();
@@ -15,12 +15,8 @@ if (Input::exists()) {
                 $course->create(['course_name' => Input::get('course_name'),'course_details' => Input::get('course_details')]);
                 header('Location: course_list.php');
             } catch(Exception $e) {
-                pr($e);
-                echo $e->getTraceAsString(), '<br>';
-            }
-        } else {
-            foreach ($validate->errors() as $error) {
-                //echo $error . "<br>";
+                $isError = $e->getMessage();
+                //echo $e->getTraceAsString(), '<br>';
             }
         }
     }
@@ -49,7 +45,11 @@ if (Input::exists()) {
             <?php }}?>
             
             
-        
+        <?php if(isset($isError) && $isError!=''){  ?>
+            <div class="alert alert-danger" role="alert">
+                <?php  echo $isError . "<br>";?>
+            </div>
+            <?php }?>
 
         <div class="row py-5">
             <div class="col-md-8 order-md-1">
