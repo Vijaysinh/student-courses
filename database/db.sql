@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 19, 2020 at 06:15 PM
+-- Generation Time: Nov 27, 2020 at 03:28 AM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `courses` (
   `course_name` varchar(100) NOT NULL,
   `course_details` longtext NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -43,8 +43,9 @@ CREATE TABLE IF NOT EXISTS `students` (
   `lname` varchar(20) NOT NULL,
   `dob` date NOT NULL,
   `phone` varchar(10) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `phone` (`phone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -54,7 +55,22 @@ CREATE TABLE IF NOT EXISTS `students` (
 
 DROP TABLE IF EXISTS `students_subscribed_course`;
 CREATE TABLE IF NOT EXISTS `students_subscribed_course` (
-  `student_id` int(11) NOT NULL,
-  `course_id` int(11) NOT NULL
+  `id` int(9) NOT NULL AUTO_INCREMENT,
+  `student_id` bigint(10) NOT NULL,
+  `course_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `student_course_foreign_key` (`student_id`),
+  KEY `course_id` (`course_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `students_subscribed_course`
+--
+ALTER TABLE `students_subscribed_course`
+  ADD CONSTRAINT `student_course_foreign_key` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`),
+  ADD CONSTRAINT `students_subscribed_course_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `courses` (`id`);
 COMMIT;
